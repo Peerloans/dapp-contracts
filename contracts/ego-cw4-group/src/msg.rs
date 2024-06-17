@@ -1,30 +1,48 @@
 
-use schemars::JsonSchema;
-use serde::{Deserialize, Serialize};
+use cosmwasm_schema::{cw_serde, QueryResponses};
 use cw3::UncheckedDepositInfo;
 use cw4::Member;
 
-#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
+#[cw_serde]
 pub struct InstantiateMsg {
     pub admin: String,
-    pub members: Vec<Member>,
-    pub member_deposit: UncheckedDepositInfo
+    pub member_deposit: Option<UncheckedDepositInfo>
 }
 
-#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
-#[serde(rename_all = "snake_case")]
+#[cw_serde]
 pub enum ExecuteMsg {
-    Dummy {},
+    /// Change the admin
+    UpdateAdmin { admin: Option<String> },
+    /// apply a diff to the existing members.
+    /// remove is applied after add, so if an address is in both, it is removed
+    UpdateMembers {
+        remove: Vec<String>,
+        add: Vec<Member>,
+    },
+    /// Add a new hook to be informed of all membership changes. Must be called by Admin
+    AddHook { addr: String },
+    /// Remove a hook. Must be called by Admin
+    RemoveHook { addr: String },
 }
 
-#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
-#[serde(rename_all = "snake_case")]
+#[cw_serde]
+#[derive(QueryResponses)]
 pub enum QueryMsg {
-    Hello {},
-}
-
-// We define a custom struct for each query response
-#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
-pub struct HelloResponse {
-    pub msg: String,
+    #[returns(cw_controllers::AdminResponse)]
+    Admin {},
+    #[returns(cw4::TotalWeightResponse)]
+    TotalWeight { at_height: Option<u64> },
+    #[returns(cw4::MemberListResponse)]
+    ListMembers {
+        start_after: Option<String>,
+        limit: Option<u32>,
+    },
+    #[returns(cw4::MemberResponse)]
+    Member {
+        addr: String,
+        at_height: Option<u64>,
+    },
+    /// Shows all registered hooks.
+    #[returns(cw_controllers::HooksResponse)]
+    Hooks {},
 }

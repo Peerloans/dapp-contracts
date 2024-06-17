@@ -3,7 +3,8 @@ use std::path::PathBuf;
 
 use cosmwasm_schema::{export_schema, remove_schemas, schema_for};
 
-use ego_cw4_group::msg::{ExecuteMsg, InstantiateMsg, QueryMsg};
+use ego_cw3_multisig::msg::{ExecuteMsg, HelloResponse, InstantiateMsg, QueryMsg};
+use ego_cw3_multisig::state::State;
 
 fn main() {
     let mut out_dir = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
@@ -14,4 +15,6 @@ fn main() {
     export_schema(&schema_for!(InstantiateMsg), &out_dir);
     export_schema(&schema_for!(ExecuteMsg), &out_dir);
     export_schema(&schema_for!(QueryMsg), &out_dir);
+    export_schema(&schema_for!(State), &out_dir);
+    export_schema(&schema_for!(HelloResponse), &out_dir);
 }

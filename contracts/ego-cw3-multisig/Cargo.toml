@@ -1,5 +1,5 @@
 [package]
-name = "ego-cw4-group"
+name = "ego-cw3-multisig"
 version = "0.1.0"
 authors = ["Godwin Igwurube <godwin.igwurube@venturec.com>"]
 edition = "2018"
@@ -37,6 +37,7 @@ optimize = """docker run --rm -v "$(pwd)":/code \
   --mount type=volume,source=registry_cache,target=/usr/local/cargo/registry \
   cosmwasm/rust-optimizer:0.12.5
 """
+
 
 [dependencies]
 cosmwasm-schema = "2.0.4"

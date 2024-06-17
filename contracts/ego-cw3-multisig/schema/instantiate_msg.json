@@ -1,13 +1,14 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "HelloResponse",
+  "title": "InstantiateMsg",
   "type": "object",
   "required": [
-    "msg"
+    "count"
   ],
   "properties": {
-    "msg": {
-      "type": "string"
+    "count": {
+      "type": "integer",
+      "format": "int32"
     }
   }
 }

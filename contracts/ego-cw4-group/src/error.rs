@@ -1,4 +1,5 @@
 use cosmwasm_std::{StdError, OverflowError};
+use cw3::DepositError;
 use thiserror::Error;
 
 use cw_controllers::{AdminError, HookError};
@@ -22,4 +23,7 @@ pub enum ContractError {
 
     #[error("Message contained duplicate member: {member}")]
     DuplicateMember { member: String },
+
+    #[error("{0}")]
+    DepositError(#[from] DepositError),
 }

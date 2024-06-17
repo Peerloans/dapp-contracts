@@ -425,6 +425,22 @@ dependencies = [
 ]
 
 [[package]]
+name = "ego-cw3-multisig"
+version = "0.1.0"
+dependencies = [
+ "cosmwasm-schema",
+ "cosmwasm-std 2.0.4",
+ "cosmwasm-storage",
+ "cw-controllers",
+ "cw-storage-plus",
+ "cw-utils",
+ "cw2",
+ "cw3",
+ "cw4",
+ "thiserror",
+]
+
+[[package]]
 name = "ego-cw4-group"
 version = "0.1.0"
 dependencies = [
@@ -433,11 +449,10 @@ dependencies = [
  "cosmwasm-storage",
  "cw-controllers",
  "cw-storage-plus",
+ "cw-utils",
  "cw2",
  "cw3",
  "cw4",
- "schemars",
- "serde",
  "thiserror",
 ]
 
